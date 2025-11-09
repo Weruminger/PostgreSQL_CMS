@@ -9,10 +9,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d
+
   postgrest:
     image: postgrest/postgrest:v12.2.3
+    depends_on: [postgres]
     environment:
-      PGRST_DB_URI: postgres://cms_owner:changeme@postgres:5432/cms
+      PGRST_DB_URI: postgres://cms_app:changeme@postgres:5432/cms
       PGRST_DB_ANON_ROLE: web_anon
       PGRST_DB_SCHEMAS: public
       PGRST_SERVER_HOST: 0.0.0.0
@@ -22,29 +24,36 @@ services:
     ports: ["3000:3000"]
     volumes:
       - ./postgrest/postgrest.conf:/etc/postgrest.conf:ro
+
   portal:
     build:
-      context: portal
-      dockerfile: portal/Dockerfile
+      context: ./portal
+      dockerfile: Dockerfile
     environment:
-      - PGHOST=postgres
-      - PGPORT=5432
-      - PGDATABASE=cms
-      - PGUSER=cms_owner
-      - PGPASSWORD=changeme
-      - APP_HTTP_ADDR=:8080
-      - AUTH_MODE=keycloak
-      - OIDC_ISSUER_URL=http://keycloak:8080/realms/cms
-      - OIDC_CLIENT_ID=portal
-      - OIDC_CLIENT_SECRET=dev-secret
-      - OIDC_REDIRECT_URL=http://localhost:8080/admin/callback
-      - SESSION_SECRET=change-me-32bytes-min
-    depends_on: [postgres, keycloak]
+      - PGHOST=${PGHOST}
+      - PGPORT=${PGPORT}
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - APP_HTTP_ADDR=${APP_HTTP_ADDR}
+      - APP_CACHE_TTL_SECONDS=${APP_CACHE_TTL_SECONDS}
+      - AUTH_MODE=${AUTH_MODE}
+      - OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      - OIDC_REDIRECT_URL=${OIDC_REDIRECT_URL}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - PGREST_URL=${PGREST_URL}
+      - MEDIA_BACKEND=${MEDIA_BACKEND}
+      - MEDIA_FS_ROOT=${MEDIA_FS_ROOT}
+      - MEDIA_PUBLIC_BASE=${MEDIA_PUBLIC_BASE}
+    depends_on: [postgres, postgrest, keycloak]
     ports: ["8080:8080"]
     volumes:
       - ./portal/assets:/srv/assets:ro
       - ./portal/templates:/srv/templates:ro
       - ./media:/srv/media
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
     command: ["start-dev","--http-port=8080","--import-realm"]
@@ -54,5 +63,6 @@ services:
     volumes:
       - ./keycloak:/opt/keycloak/data/import
     ports: ["8081:8080"]
+
 volumes:
   pgdata:

@@ -1,6 +1,16 @@
 {
   "realm": "cms",
   "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "editor"
+      },
+      {
+        "name": "admin"
+      }
+    ]
+  },
   "clients": [
     {
       "clientId": "portal",
@@ -22,7 +32,34 @@
           "value": "editorpass",
           "temporary": false
         }
-      ]
+      ],
+      "realmRoles": [
+        "editor"
+      ],
+      "attributes": {
+        "tenant_id": [
+          "1"
+        ]
+      }
+    },
+    {
+      "username": "admin1",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "adminpass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin"
+      ],
+      "attributes": {
+        "tenant_id": [
+          "1"
+        ]
+      }
     }
   ]
 }
