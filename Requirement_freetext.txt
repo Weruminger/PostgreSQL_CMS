@@ -1,0 +1,9 @@
+Darauf hast Du schon in einem anderen Chat positiv  geantwortet:
+gibt es ein CMS, das komplett in einer DB realisiert ist ? z.b. mit pgsl oder (da mann das in posgres als db Script Spache intergrieren kann in Python unter postgreSQL ?
+
+Headless CMS, Multi Tenant, Multi portal/domain
+postgreSQL, python3pl und golang vorausgesetzt , wie sähe eine Realisierung aus
+
+das Portal (losgelöst vom CMS) sollte die CMS Daten in Templates für verschiedenen Zielplattformen, Browser, Auflösungen die Seiten aufbereiten können und dafür auf separate Designelemente zurückgreifen.
+
+es sollten andere Technikten (javascript, typescript, node.js boot, sprin, react, vue) ausschließlich in non-volatilen bereichen Anwendung finden dürfen, am besten aber vermieden werden..

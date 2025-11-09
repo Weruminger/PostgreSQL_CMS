@@ -1,0 +1,28 @@
+{
+  "realm": "cms",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "portal",
+      "publicClient": false,
+      "redirectUris": [
+        "http://localhost:8080/*"
+      ],
+      "secret": "dev-secret",
+      "protocol": "openid-connect"
+    }
+  ],
+  "users": [
+    {
+      "username": "editor1",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "editorpass",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

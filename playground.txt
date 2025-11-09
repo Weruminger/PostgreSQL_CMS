@@ -1,0 +1,26 @@
+
+ip link set vmbr10 down
+ip link set vmbr20 down
+ip link set vmbr30 down
+ip link set vmbr40 down
+ip addr flush dev vmbr10
+ip addr flush dev vmbr20
+ip addr flush dev vmbr30
+ip addr flush dev vmbr40
+
+ip link delete vmbr10
+ip link delete vmbr20
+ip link delete vmbr30
+ip link delete vmbr40
+
+ip link set enp2s0.10 down
+ip link set enp2s0.20 down
+ip link set enp2s0.30 down
+ip link set enp2s0.40 down
+ip link set enp2s0.50 down  # falls schon angelegt
+
+ip link delete enp2s0.10
+ip link delete enp2s0.20
+ip link delete enp2s0.30
+ip link delete enp2s0.40
+ip link delete enp2s0.50

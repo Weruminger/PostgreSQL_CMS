@@ -1,0 +1,1 @@
+insert into tenants(slug,title) values('demo','Demo');

@@ -1,0 +1,1 @@
+create table tenants(id bigserial primary key, slug text not null, title text not null);
