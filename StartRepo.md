@@ -417,6 +417,7 @@ grant select on media_assets, media_locations to web_anon;
 ### Portal‑Upload/Proxy (Skizze) – `portal/internal/media.go`
 
 ```go
+ package media
 // Pseudocode: je nach MEDIA_BACKEND speichern
 // fs: in MEDIA_FS_ROOT/<tenant>/<uuid> ablegen
 // s3: PutObject(S3_BUCKET, key)
