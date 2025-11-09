@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  pgtest:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: cms
+      POSTGRES_USER: cms_owner
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cms_owner -d cms"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
