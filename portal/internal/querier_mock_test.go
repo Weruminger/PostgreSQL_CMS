@@ -24,7 +24,7 @@ func (m *mockRows) Scan(dest ...any) error {
 	if m.err != nil {
 		return m.err
 	}
-	for i := range dest { // naive copy
+	for i := range dest {
 		switch d := dest[i].(type) {
 		case *int64:
 			*d = m.data[m.i-1][i].(int64)
@@ -49,8 +49,14 @@ func (m mockQuerier) QueryRow(ctx context.Context, sql string, args ...any) pgx.
 	return m.qr(ctx, sql, args...)
 }
 func (m mockQuerier) Query(ctx context.Context, sql string, args ...any) (pgx.Rows, error) {
+	if m.q == nil {
+		return nil, errors.New("not implemented")
+	}
 	return m.q(ctx, sql, args...)
 }
 func (m mockQuerier) Exec(ctx context.Context, sql string, args ...any) (pgconn.CommandTag, error) {
+	if m.ex == nil {
+		return pgconn.CommandTag(""), errors.New("not implemented")
+	}
 	return m.ex(ctx, sql, args...)
 }
