@@ -1,0 +1,32 @@
+UML-like overview (text)
+
+DB Tables (relevant):
+- admin_audit
+  - id: bigint
+  - tenant_id: bigint
+  - actor: text
+  - entity: text
+  - entity_id: bigint
+  - action: text
+  - diff: jsonb
+  - at: timestamptz
+
+- entries
+  - id, tenant_id, type_id, slug, data (jsonb), status, updated_at
+
+- media_assets
+  - id, tenant_id, location_id, filename, mime_type, size_bytes, checksum, storage_key, meta (jsonb)
+
+- sessions (optional)
+  - id, tenant_id, user_id, created_at, expires_at
+
+- users (optional)
+  - id, tenant_id, email, name, meta
+
+Go structs / handlers (found):
+- Article { ID int64; Slug, Title, Body string }
+- Admin handlers: AdminAuditList, AdminMediaUpload, AdminEntryEdit, AdminUserDelete (new)
+
+Notes:
+- RLS functions: app_current_tenant_id(), app_current_role()
+- Audit trigger: audit_entries() writes to admin_audit on entries changes
