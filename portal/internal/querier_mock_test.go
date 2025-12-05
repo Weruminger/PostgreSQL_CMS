@@ -56,7 +56,7 @@ func (m mockQuerier) Query(ctx context.Context, sql string, args ...any) (pgx.Ro
 }
 func (m mockQuerier) Exec(ctx context.Context, sql string, args ...any) (pgconn.CommandTag, error) {
 	if m.ex == nil {
-		return pgconn.CommandTag(""), errors.New("not implemented")
+		return pgconn.NewCommandTag(""), errors.New("not implemented")
 	}
 	return m.ex(ctx, sql, args...)
 }

@@ -23,7 +23,7 @@ func TestLookupTenantByHost(t *testing.T) {
 			return mockRow{scan: func(dest ...any) error { return errors.New("no rows") }}
 		},
 		ex: func(ctx context.Context, sql string, args ...any) (pgconn.CommandTag, error) {
-			return pgconn.CommandTag("OK"), nil
+			return pgconn.NewCommandTag("OK"), nil
 		},
 	}
 	id, err := LookupTenantByHost(context.Background(), q, "ok.local")
