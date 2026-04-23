@@ -1,10 +1,10 @@
 module headless-db-cms
 
-go 1.24.0
+go 1.25.0
 
 require (
 	github.com/gorilla/securecookie v1.1.2
-	github.com/jackc/pgx/v5 v5.7.6
+	github.com/jackc/pgx/v5 v5.9.2
 	github.com/stretchr/testify v1.11.1
 	github.com/testcontainers/testcontainers-go v0.40.0
 	github.com/testcontainers/testcontainers-go/modules/postgres v0.40.0
